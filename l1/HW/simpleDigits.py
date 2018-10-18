@@ -2,9 +2,9 @@
 #simpleDigits.py
 import os
 os.system('clear')
-
+print("программа выводит список простых чисел в диапазоне от 1 до указзанного")
 div=0
-i=int(input('i:'))
+i=int(input('введите число:'))
 for i in range(2,i+1):
     #print("i=",i)
     for j in range(2,i):
@@ -14,6 +14,6 @@ for i in range(2,i+1):
             div=div+1
         #print("i={0} : j={1} last={2} div={3}".format(i, j, last, div))
     if div==0:
-        print("simpleNumber=",i)
+        print("найдено простое число=",i)
     else:
         div=0
