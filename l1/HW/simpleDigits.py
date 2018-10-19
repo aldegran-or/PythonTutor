@@ -2,18 +2,15 @@
 #simpleDigits.py
 import os
 os.system('clear')
-print("программа выводит список простых чисел в диапазоне от 1 до указзанного")
-div=0
-i=int(input('введите число:'))
-for i in range(2,i+1):
+print("программа выводит список простых чисел в указанном диапазоне")
+k=int(input('введите первое число:'))
+i=int(input('введите второе число:'))
+for i in range(k,i+1):
     #print("i=",i)
     for j in range(2,i):
-        #main=i/j
-        last=i%j
-        if last==0:
-            div=div+1
-        #print("i={0} : j={1} last={2} div={3}".format(i, j, last, div))
-    if div==0:
-        print("найдено простое число=",i)
+        #print(" j=",j)
+        if i%j==0:
+            #print("число {0} составное".format(i))
+            break
     else:
-        div=0
+     print("найдено простое число=",i)
