@@ -1,0 +1,11 @@
+# adoptive PS1 
+function a_prompt () {
+term_width=$COLUMNS
+echo "$term_width"
+
+#userLogin
+u_name=$(whoami)
+#hostname
+h_name=$(hostname | cut -d '.' -f 1)
+PS1='-${debian_chroot:+($debian_chroot)}-\[\033[01;32m\]<${u_name}@${h_name}>\[\033[00m\]:\[\033[01;34m\]-<\W>-\[\033[00m\]\$ '
+}

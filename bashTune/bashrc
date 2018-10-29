@@ -2,7 +2,7 @@
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
 # echo -e $'\uE0B0' # It's the utf8 code for the fancy triangle 
-if [ "$COLORTERM" == "gnome-terminal" ] || [ "$COLORTERM" == "xfce4-terminal" ] || [ "$COLORTERM" == "mate-terminal" ]
+if [ "$COLORTERM" == "gnome-terminal" ] || [ "$COLORTERM" == "xfce4-terminal" ] || [ "$COLORTERM" == "mate-terminal" ] || [ "$COLORTERM" == "truecolor" ]
 then
 	TERM=xterm-256color
 elif [ "$COLORTERM" == "rxvt-xpm" ]
@@ -72,6 +72,10 @@ fi
 case "$TERM" in
 xterm-color|*-256color)
 	    color_prompt=yes;;
+*)
+	    color_prompt=no;;
+#*)
+#    ;;
 esac
 #echo $color_prompt # for debug
 
@@ -93,26 +97,39 @@ fi
 #If docker-mashine used add to PS1 
 # $(__docker_machine_ps1)
 # $(__docker_machine_ps1 " [%s]")
-if [ "$color_prompt" = yes ]; then
-	#echo "first chanse PS1 used" #for debug
-	PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__docker_machine_ps1 " [%s]")\$ '
+if [ "$color_prompt" = yes ] && [ -x /usr/local/bin/docker-mashine ]; then
+		#echo "first chanse PS1 used" #for debug
+		PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]$(__docker_machine_ps1 " [%s]")\$ '
+elif [ "$color_prompt" = yes ]; then
+		#echo "first.2 chanse PS1 used" #for debug
+		if [ -f ~/.bashAdopt ]; then
+		        . ~/.bashAdopt
+		        echo "file bashAdopt found"
+		else
+			echo "file bashAdopt not found"
+		fi
+		a_prompt	
+		#PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\W\[\033[00m\]\$ '
+elif [ "$TERM" = xterm ] && [ -x /usr/local/bin/docker-mashine ]; then
+		#echo "second chanse PS1 used"
+		PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W$(__docker_machine_ps1 " [%s]")\$ '
 else
-	echo "second chanse PS1 used"
-	PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w$(__docker_machine_ps1 " [%s]")\$ '
+		#echo "second.2 chanse PS1 used"
+		PS1='${debian_chroot:+($debian_chroot)}\u@\h:\W\$ '
 fi
-#echo "third drop "
+
 #unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
-#echo "last chanse PS1 used" 
-case "$TERM" in
-xterm|rxvt)
+#case "$TERM" in
+#xterm|rxvt)
+#	echo "last chanse PS1 used" 
 #	PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$(__docker_machine_ps1 " [%s]")$PS1"
-	PS1="${debian_chroot:+($debian_chroot)}<$HC$UL\u@\H$RS>: \W \n>>>>\$ "
-;;
-*)
-    ;;
-esac
+#	PS1="${debian_chroot:+($debian_chroot)}<$HC$UL\u@\H$RS>: \W \n>>>>\$ "
+#;;
+#*)
+#    ;;
+#esac
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
