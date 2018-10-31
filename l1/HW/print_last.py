@@ -5,5 +5,5 @@
 str=input("введите строку:")
 print(str)
 print(len(str))
-print(str[-1,-3])
+print(str[-1])
 
