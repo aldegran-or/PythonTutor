@@ -1,5 +1,9 @@
-if [ -f testFunctions.sh ] ; then 
-           echo "File found"
-	. ./testFunctions.sh
+#!/bin/bash
+if [ -f ./testFunctions ] ; then
+	source ./testFunctions
+        echo "File found"
 fi
-bash_prompt_command
+
+	bpc
+echo "$tw"
+echo "${COLUMNS}"

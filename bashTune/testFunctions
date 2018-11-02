@@ -1,0 +1,5 @@
+function bpc() {
+tw=$COLUMNS
+
+echo "$tw"
+}
