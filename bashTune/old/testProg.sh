@@ -3,3 +3,5 @@ if [ -f testFunctions.sh ] ; then
 	. ./testFunctions.sh
 fi
 bash_prompt_command
+echo " pwdmaxlen = $pwdmaxlen"
+echo "columns = $coll"
